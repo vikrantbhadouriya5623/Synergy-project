@@ -1,0 +1,1725 @@
+<!DOCTYPE html><html lang="en" style=""><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AutoSorter // Conveyor Control &amp; Automated Colour Sorting System</title>
+<!-- Google Fonts: Space Grotesk, IBM Plex Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Container Queries and Forms plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#bec6e0",
+            "outline-variant": "#e2bfb0",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#dae2fd",
+            "on-tertiary-fixed": "#002113",
+            "primary-fixed-dim": "#ffb693",
+            "on-primary-container": "#572000",
+            "background": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#a04100",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed": "#ffdbcc",
+            "inverse-surface": "#213145",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#6ffbbe",
+            "error-container": "#ffdad6",
+            "on-primary": "#ffffff",
+            "tertiary": "#006c49",
+            "on-surface": "#0b1c30",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#131b2e",
+            "on-surface-variant": "#5a4136",
+            "outline": "#8e7164",
+            "surface": "#f8f9ff",
+            "on-primary-fixed-variant": "#7a3000",
+            "on-secondary-container": "#5c647a",
+            "secondary-fixed": "#dae2fd",
+            "surface-variant": "#d3e4fe",
+            "on-tertiary-container": "#003925",
+            "surface-container-high": "#dce9ff",
+            "primary-container": "#ff6b00",
+            "inverse-primary": "#ffb693",
+            "secondary": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "on-error": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-primary-fixed": "#351000",
+            "tertiary-container": "#00ae78",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#005236",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-background": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "primary": "#a04100"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "gutter-sm": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "margin-presentation": "3rem",
+            "margin": "2rem",
+            "gutter-lg": "2rem",
+            "margin-mobile": "1rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "body-lg": ["IBM Plex Sans"],
+            "headline-lg": ["Space Grotesk"],
+            "body-sm": ["IBM Plex Sans"],
+            "title-lg": ["IBM Plex Sans"],
+            "label-telemetry": ["JetBrains Mono"],
+            "title-md": ["IBM Plex Sans"],
+            "label-badge": ["Space Grotesk"],
+            "body-md": ["IBM Plex Sans"],
+            "label-code": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-telemetry": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-code": ["11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+    }
+    .micro-dot-bg {
+      background-color: #f8f9ff;
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .alarm-flashing {
+      animation: pulse-alarm 1s infinite alternate;
+    }
+    @keyframes pulse-alarm {
+      0% { background-color: #FEF2F2; border-color: #EF4444; }
+      100% { background-color: #FEE2E2; border-color: #B91C1C; }
+    }
+    .paused-animation * {
+      animation-play-state: paused !important;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen font-body-md overflow-x-hidden">
+<!-- ======================================================== -->
+<!-- 1. LOGIN SCREEN CONTAINER (Default Active View on Load)   -->
+<!-- ======================================================== -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 micro-dot-bg overflow-y-auto" id="login-view">
+<div class="w-full max-w-5xl bg-surface-container-lowest border border-surface-dim rounded-lg shadow-xl grid grid-cols-1 lg:grid-cols-12 overflow-hidden my-auto">
+<!-- Left Hero/Visual Pane (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-container-low p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-surface-dim relative overflow-hidden">
+<div class="absolute inset-0 micro-dot-bg opacity-70 pointer-events-none"></div>
+<!-- Top Tech Tags -->
+<div class="relative z-10 space-y-3">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-lowest border border-primary-container text-primary text-label-code font-label-code rounded">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+              ACADEMIC VIVA EVALUATION READY
+            </span>
+<span class="px-2 py-1 bg-surface-container text-secondary text-label-code font-label-code rounded border border-surface-dim">
+              BTech CSE // 2nd Year
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+            AUTOSORTER // CONVEYOR CONTROL
+          </h1>
+<p class="font-body-md text-secondary max-w-lg">
+            High-precision mechatronics platform marrying real-time TCS3200 colour spectroscopic sensing, dual MCU telemetry (ESP32 + Arduino Uno), and modular Java OOP architecture.
+          </p>
+</div>
+<!-- Center Schematic Card -->
+<div class="relative z-10 my-6 p-4 bg-surface-container-lowest border border-surface-dim rounded-sm">
+<div class="flex justify-between items-center pb-2 border-b border-surface-dim mb-3">
+<span class="text-label-code font-label-code text-primary uppercase">CONVEYOR_PIPELINE // SCHEMATIC_04</span>
+<span class="text-label-code font-label-code text-secondary">FEED_RATE: 30 RPM</span>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center">
+<div class="p-2 bg-surface-container-low rounded border border-surface-dim">
+<div class="text-label-code font-label-code text-secondary">OPTICAL_RGB</div>
+<div class="font-label-telemetry text-label-telemetry font-bold text-on-surface">TCS3200</div>
+<div class="text-label-code font-label-code text-tertiary">ONLINE</div>
+</div>
+<div class="p-2 bg-surface-container-low rounded border border-surface-dim">
+<div class="text-label-code font-label-code text-secondary">CHUTE_PROX</div>
+<div class="font-label-telemetry text-label-telemetry font-bold text-on-surface">HC-SR04</div>
+<div class="text-label-code font-label-code text-tertiary">8.4 cm [ONLINE]</div>
+</div>
+<div class="p-2 bg-surface-container-low rounded border border-surface-dim">
+<div class="text-label-code font-label-code text-secondary">SERVO_DIVERTER</div>
+<div class="font-label-telemetry text-label-telemetry font-bold text-on-surface">MG996R</div>
+<div class="text-label-code font-label-code text-primary-container">4-WAY DEFLECT</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<div class="relative z-10 flex items-center justify-between text-label-code font-label-code text-secondary pt-2">
+<span class="">HOST: COM4 @ 115200 BAUD</span>
+<span class="">FIRMWARE: v2.4.1-OOP</span>
+</div>
+</div>
+<!-- Right Form Pane (5 Cols) -->
+<div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-center bg-surface-container-lowest">
+<div class="mb-6 text-center lg:text-left">
+<img alt="AutoSorter Brand Logo" class="h-10 w-auto mb-4 inline-block" src="https://lh3.googleusercontent.com/aida/AEtjO1WoCbSWsfgxD6ueMHKJVxNp0F9PhPxSlq-9FpDyVGKwQDsiIwv3qc_a7_q5S7SiLpMNNEuTa5sXpQBkpRf_XfCTekEHbhoo4ESJkMs7BlNKVKFQ0aclPnoJfgb8C-VbPFUTLglJRiWCcL9a-cQOFazGMbRfyjazQglB072R2O7XsEhu3jRYDoszup1qFuMo_FhTwywpljBOWqffqG_OnYEjBP0-C9_mYCuh4XuMjrLvPxTi5T2iCxBeYeG7">
+<h2 class="font-headline-md text-headline-md text-on-surface">System Sign-In</h2>
+<p class="text-body-sm font-body-sm text-secondary">Engineering Station / Examiner Terminal</p>
+</div>
+<!-- Validation Banner (Hidden initially) -->
+<div class="hidden mb-4 p-3 bg-error-container text-on-error-container border border-error rounded text-body-sm font-body-sm flex items-center gap-2" id="login-alert">
+<span class="material-symbols-outlined text-error">error</span>
+<span class="">Please enter valid terminal credentials.</span>
+</div>
+<form class="space-y-4" id="login-form" onsubmit="event.preventDefault(); triggerStartup();">
+<div>
+<label class="block text-label-code font-label-code text-secondary uppercase mb-1">Operator ID / Terminal Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary">badge</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-container-lowest border border-surface-dim rounded-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container font-label-telemetry text-body-md text-on-surface outline-none" id="login-email" required="" type="text" value="engineer@autosorter.lab">
+</div>
+</div>
+<div>
+<label class="block text-label-code font-label-code text-secondary uppercase mb-1">Passcode / Viva Token</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary">lock</span>
+<input class="w-full pl-10 pr-10 py-2 bg-surface-container-lowest border border-surface-dim rounded-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container font-label-telemetry text-body-md text-on-surface outline-none" id="login-password" required="" type="password" value="viva2025">
+<button class="absolute right-3 top-2 text-secondary hover:text-on-surface" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-secondary" id="password-toggle-icon">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded-sm border-surface-dim text-primary-container focus:ring-primary-container" type="checkbox">
+<span class="text-secondary">Remember station</span>
+</label>
+<a class="text-primary hover:underline font-label-code text-label-code" href="#" onclick="alert('Default demo credentials:\nID: engineer@autosorter.lab\nToken: viva2025')">Demo Creds</a>
+</div>
+<button class="w-full py-3 bg-primary-container hover:bg-orange-600 text-white font-label-telemetry font-bold uppercase tracking-wider rounded-sm shadow-sm transition active:translate-y-px flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined">power_settings_new</span>
+            Initialize System / Login
+          </button>
+</form>
+<div class="mt-8 pt-4 border-t border-surface-dim flex justify-between items-center text-label-code font-label-code text-secondary">
+<span class="">DEPT OF CSE</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> READY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- 2. HIGH-TECH STARTUP SEQUENCE MODAL (1.5s Simulation)    -->
+<!-- ======================================================== -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/80 backdrop-blur-sm flex items-center justify-center p-4" id="startup-modal">
+<div class="bg-surface-container-lowest border border-primary-container p-6 rounded-lg max-w-md w-full shadow-2xl space-y-4">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container animate-spin">sync</span>
+<span class="font-headline-md text-title-md text-on-surface uppercase">HARDWARE HANDSHAKE</span>
+</div>
+<span class="text-label-code font-label-code text-primary-container animate-pulse">INIT_VIVA_SEQ</span>
+</div>
+<!-- Telemetry Boot Log -->
+<div class="bg-surface-container-low p-3 rounded font-label-code text-label-code space-y-1.5 border border-surface-dim h-40 overflow-y-auto" id="boot-log-container">
+<div class="text-secondary">&gt; Connecting to ESP32 IoT Node COM4... <span class="text-tertiary">OK</span></div>
+<div class="text-secondary">&gt; Querying TCS3200 Optical Calibration Matrix... <span class="text-tertiary">OK</span></div>
+<div class="text-secondary">&gt; Zeroing MG996R Sorting Diverter Flap... <span class="text-tertiary">OK</span></div>
+<div class="text-secondary">&gt; Binding Java OOP Polymorphic Subsystems... <span class="text-tertiary">OK</span></div>
+<div class="text-primary font-bold">&gt; Academic BTech Presentation Mode armed... <span class="text-primary-container">100%</span></div>
+</div>
+<!-- Industrial Progress Bar -->
+<div>
+<div class="flex justify-between text-label-code font-label-code text-secondary mb-1">
+<span class="">PROGRESS</span>
+<span id="startup-pct" class="">100%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-full transition-all duration-1000" id="startup-bar"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- 3. TOP NAVIGATION BAR (Shared Component Anchored)         -->
+<!-- ======================================================== -->
+<header class="flex justify-between items-center w-full px-space-lg py-space-sm h-14 sticky top-0 z-40 border-b border-surface-dim bg-surface-container-lowest shadow-sm">
+<!-- Brand / Product Name -->
+<div class="flex items-center gap-4">
+<img alt="AutoSorter Brand Logo" class="h-8 w-auto hidden sm:block" src="https://lh3.googleusercontent.com/aida/AEtjO1WoCbSWsfgxD6ueMHKJVxNp0F9PhPxSlq-9FpDyVGKwQDsiIwv3qc_a7_q5S7SiLpMNNEuTa5sXpQBkpRf_XfCTekEHbhoo4ESJkMs7BlNKVKFQ0aclPnoJfgb8C-VbPFUTLglJRiWCcL9a-cQOFazGMbRfyjazQglB072R2O7XsEhu3jRYDoszup1qFuMo_FhTwywpljBOWqffqG_OnYEjBP0-C9_mYCuh4XuMjrLvPxTi5T2iCxBeYeG7">
+<div class="h-6 w-px bg-surface-dim hidden sm:block"></div>
+<span class="text-title-lg font-headline-md uppercase tracking-wider text-on-surface">
+        AUTOSORTER // CONVEYOR CONTROL
+      </span>
+</div>
+<!-- Active Telemetry & Machine Global States -->
+<div class="hidden lg:flex items-center gap-4">
+<!-- Live Machine State Badge -->
+<div class="flex items-center gap-2 px-2.5 py-1 bg-[#ECFDF5] border border-[#047857] text-[#065F46] rounded text-label-code font-label-code" id="top-status-badge">
+<span class="w-2 h-2 rounded-full bg-[#10B981] animate-ping" id="top-status-dot"></span>
+<span id="top-status-text" class="">SYSTEM STATUS: RUNNING / ONLINE</span>
+</div>
+<!-- Hardware Link Readout -->
+<div class="text-label-code font-label-code text-secondary flex items-center gap-1.5 border border-surface-dim px-2 py-1 rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary" style="font-size:16px;">cable</span>
+<span class="">ESP32 &amp; Arduino Uno COM4 [115200 Baud]</span>
+</div>
+<!-- UTC Clock -->
+<div class="text-label-code font-label-code text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary" style="font-size:16px;">schedule</span>
+<span id="live-clock" class="">19:58:07 UTC</span>
+</div>
+</div>
+<!-- Trailing Actions: Secondary Diagnostics & Emergency Stop -->
+<div class="flex items-center gap-2">
+<button class="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-on-surface text-on-surface font-label-telemetry text-label-telemetry uppercase rounded-sm hover:bg-surface-container transition active:translate-y-px" onclick="switchTab('tab-sensors')">
+<span class="material-symbols-outlined" style="font-size:16px;">sensors</span>
+        SYS_DIAGNOSTICS
+      </button>
+<button class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-label-telemetry font-bold text-label-telemetry uppercase rounded-sm shadow transition active:translate-y-px flex items-center gap-1.5 border border-red-800" onclick="openEStopModal()">
+<span class="material-symbols-outlined" style="font-size:18px;">warning</span>
+        EMERGENCY STOP
+      </button>
+<!-- Logout icon button -->
+<button class="p-1.5 text-secondary hover:text-on-surface rounded hover:bg-surface-container transition" onclick="confirmLogout()" title="Exit Terminal">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</header>
+<!-- ======================================================== -->
+<!-- 4. MAIN APP LAYOUT: SIDEBAR + CONTENT CANVAS             -->
+<!-- ======================================================== -->
+<div class="flex min-h-[calc(100vh-3.5rem)]">
+<!-- Compact Futuristic Industrial Sidebar -->
+<aside class="w-64 border-r border-surface-dim bg-surface-container-lowest flex flex-col justify-between py-space-md shrink-0 hidden md:flex">
+<div>
+<!-- SideNav Header -->
+<div class="px-space-md mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">conveyor_belt</span>
+<div>
+<div class="text-title-md font-headline-md font-bold text-on-surface tracking-tight">CONVEYOR CONTROLLER</div>
+<div class="text-body-sm font-body-sm text-secondary">VIVA ED // ESP32+UNO</div>
+</div>
+</div>
+</div>
+<!-- Navigation Links Cluster -->
+<nav class="space-y-1">
+<!-- 1. Dashboard -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-low text-primary-container font-semibold border-l-4 border-primary-container text-left text-label-code font-label-code transition" id="nav-tab-dashboard" onclick="switchTab('tab-dashboard')">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="">Dashboard</span>
+</button>
+<!-- 2. Machine Status -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition" id="nav-tab-machine-status" onclick="switchTab('tab-machine-status')">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="">Machine Status</span>
+</button>
+<!-- 3. Colour Detection -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition" id="nav-tab-colour-detection" onclick="switchTab('tab-colour-detection')">
+<span class="material-symbols-outlined">palette</span>
+<span class="">Colour Detection</span>
+</button>
+<!-- 4. Sensors -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition" id="nav-tab-sensors" onclick="switchTab('tab-sensors')">
+<span class="material-symbols-outlined">tune</span>
+<span class="">Sensor Telemetry</span>
+</button>
+<!-- 5. System Components -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition" id="nav-tab-components" onclick="switchTab('tab-components')">
+<span class="material-symbols-outlined">memory</span>
+<span class="">System Components</span>
+</button>
+<!-- 6. About System & OOP -->
+<button class="w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition" id="nav-tab-oop" onclick="switchTab('tab-oop')">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="">About System &amp; OOP</span>
+</button>
+</nav>
+<!-- Calibrate All CTA Button -->
+<div class="px-space-md mt-6">
+<button class="w-full py-2 bg-surface-container-lowest border border-on-surface text-on-surface hover:bg-surface-container font-label-code text-label-code uppercase tracking-wider rounded-sm flex items-center justify-center gap-1.5 transition active:translate-y-px" onclick="triggerCalibration()">
+<span class="material-symbols-outlined" style="font-size:16px;">build</span>
+            CALIBRATE ALL
+          </button>
+</div>
+</div>
+<!-- Sidebar Footer (Academic Viva Badge) -->
+<div class="px-space-md pt-4 border-t border-surface-dim space-y-3">
+<div class="p-3 bg-surface-container-low rounded border border-surface-dim">
+<div class="text-label-code font-label-code text-primary uppercase font-bold">DEPT OF CSE</div>
+<div class="text-body-sm font-body-sm text-secondary">Viva Edition • BTech Evaluation</div>
+<div class="text-label-code font-label-code text-tertiary flex items-center gap-1 mt-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> NODE: SECURE
+          </div>
+</div>
+<button class="w-full flex items-center gap-2 text-secondary hover:text-red-600 text-label-code font-label-code py-1 transition" onclick="confirmLogout()">
+<span class="material-symbols-outlined" style="font-size:16px;">logout</span>
+<span class="">Disconnect / Sign Out</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-4 md:p-6 lg:p-8 micro-dot-bg overflow-y-auto max-w-[1600px] mx-auto w-full">
+<!-- Flashing Emergency Banner (shown if stopped) -->
+<div class="hidden mb-6 p-4 bg-red-100 border-2 border-red-600 rounded-sm alarm-flashing flex flex-col sm:flex-row items-center justify-between gap-4" id="emergency-banner">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-600" style="font-size:32px;">error</span>
+<div>
+<div class="font-headline-md text-title-lg text-red-800 font-bold uppercase tracking-wide">
+              CRITICAL HALT // EMERGENCY STOP ENGAGED
+            </div>
+<div class="font-body-md text-red-700">
+              Conveyor motor powered down. SG90/MG996R servo diverter flap locked in neutral safe-state.
+            </div>
+</div>
+</div>
+<button class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-label-telemetry font-bold text-label-telemetry uppercase tracking-wider rounded shadow transition active:translate-y-px shrink-0" onclick="resetEmergencyStop()">
+          RESET &amp; RESUME OPERATION
+        </button>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 1: MAIN DASHBOARD                                    -->
+<!-- ======================================================== -->
+<div class="space-y-6" id="content-tab-dashboard">
+<!-- SECTION D: 5-STAGE PIPELINE -->
+<div class="bg-surface-container-lowest border border-surface-dim p-4 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-3 pb-2 border-b border-surface-dim">
+<span class="text-label-code font-label-code text-primary uppercase font-bold">5-STAGE SORTING SEQUENCE PIPELINE</span>
+<span class="text-label-code font-label-code text-secondary" id="active-cycle-display">ACTIVE CYCLE: #1249</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-center" id="pipeline-stages-container"><div class="p-2.5 bg-surface-container-low border-2 border-primary-container rounded flex flex-col items-center shadow-sm cursor-pointer transition hover:bg-surface-container-high" id="stage-card-1" onclick="highlightZone('ultrasonic')">
+<span class="text-label-code font-label-code text-primary-container font-bold">STAGE 01</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Object Detected</span>
+<span class="text-label-code font-label-code text-primary-container mt-1 font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span> HC-SR04 / Detection
+</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-surface-dim rounded flex flex-col items-center cursor-pointer transition hover:bg-surface-container-high" id="stage-card-2" onclick="highlightZone('optical')">
+<span class="text-label-code font-label-code text-secondary font-bold">STAGE 02</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">TCS3200 Colour Read</span>
+<span class="text-label-code font-label-code text-secondary mt-1">RGB Sampling</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-surface-dim rounded flex flex-col items-center cursor-pointer transition hover:bg-surface-container-high" id="stage-card-3" onclick="highlightZone('classification')">
+<span class="text-label-code font-label-code text-secondary font-bold">STAGE 03</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Colour Identified</span>
+<span class="text-label-code font-label-code text-secondary mt-1">Classification</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-surface-dim rounded flex flex-col items-center cursor-pointer transition hover:bg-surface-container-high" id="stage-card-4" onclick="highlightZone('servo')">
+<span class="text-label-code font-label-code text-secondary font-bold">STAGE 04</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Servo Sorting</span>
+<span class="text-label-code font-label-code text-secondary mt-1">Servo Deflection</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-surface-dim rounded flex flex-col items-center cursor-pointer transition hover:bg-surface-container-high" id="stage-card-5" onclick="highlightZone('bins')">
+<span class="text-label-code font-label-code text-secondary font-bold">STAGE 05</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">Output Bin</span>
+<span class="text-label-code font-label-code text-tertiary mt-1">Sorted Successfully</span>
+</div></div>
+</div>
+<!-- 12-COLUMN INDUSTRIAL GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- SECTION A: LIVE CONVEYOR SORTING SIMULATOR (8 Cols) -->
+<div class="lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest border border-surface-dim rounded-lg p-5 shadow-sm relative overflow-hidden">
+<div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-surface-dim mb-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">conveyor_belt</span>
+<span class="font-headline-md text-title-lg text-on-surface uppercase font-bold">LIVE CONVEYOR SORTING SIMULATOR</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Continuous automated colour sorting feed with TCS3200 &amp; ultrasonic inspection</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-surface-container text-secondary text-label-code font-label-code rounded border border-surface-dim">CAD MODEL: AUTOSORTER CONVEYOR</span>
+<span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 text-label-code font-label-code rounded font-bold" id="canvas-status-tag">
+                    ONLINE
+                  </span>
+</div>
+</div>
+<!-- Unobstructed Clean Animated Conveyor Machine Container -->
+<div class="relative bg-surface-container-low border border-surface-dim rounded overflow-hidden p-1 min-h-[440px] flex items-center justify-center" id="conveyor-anim-container"><svg viewBox="0 0 960 420" class="w-full h-full min-h-[420px] select-none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="beltGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E293B"></stop>
+      <stop offset="50%" stop-color="#334155"></stop>
+      <stop offset="100%" stop-color="#1E293B"></stop>
+    </linearGradient>
+    <linearGradient id="gantryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94A3B8"></stop>
+      <stop offset="100%" stop-color="#64748B"></stop>
+    </linearGradient>
+    <radialGradient id="sensorBeam" cx="50%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.7"></stop>
+      <stop offset="60%" stop-color="#FF9E40" stop-opacity="0.2"></stop>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"></stop>
+    </radialGradient>
+    <pattern id="beltTracks" width="24" height="16" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="16" stroke="#475569" stroke-width="3" stroke-linecap="round"></line>
+    </pattern>
+  </defs>
+
+  <!-- Subtle Industrial Grid Backdrop -->
+  <rect width="960" height="420" fill="#F1F5F9"></rect>
+  <line x1="0" y1="300" x2="960" y2="300" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4,4"></line>
+  <line x1="0" y1="120" x2="960" y2="120" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,4"></line>
+
+  <!-- FEED CHUTE & HOPPER (LEFT) -->
+  <g id="zone-hopper">
+    <path d="M 40 40 L 110 40 L 95 160 L 65 160 Z" fill="#CBD5E1" stroke="#475569" stroke-width="2"></path>
+    <rect x="55" y="150" width="40" height="15" fill="#64748B" rx="2"></rect>
+    <text x="75" y="32" fill="#475569" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">INTAKE HOPPER</text>
+  </g>
+
+  <!-- MAIN CONVEYOR BED -->
+  <g id="zone-conveyor">
+    <!-- Support Legs -->
+    <rect x="110" y="200" width="12" height="150" fill="#64748B" rx="1"></rect>
+    <rect x="350" y="200" width="12" height="150" fill="#64748B" rx="1"></rect>
+    <rect x="580" y="200" width="12" height="150" fill="#64748B" rx="1"></rect>
+    <rect x="820" y="200" width="12" height="150" fill="#64748B" rx="1"></rect>
+    <!-- Cross braces -->
+    <line x1="116" y1="270" x2="356" y2="320" stroke="#94A3B8" stroke-width="2"></line>
+    <line x1="116" y1="320" x2="356" y2="270" stroke="#94A3B8" stroke-width="2"></line>
+    <line x1="356" y1="270" x2="586" y2="320" stroke="#94A3B8" stroke-width="2"></line>
+    <line x1="356" y1="320" x2="586" y2="270" stroke="#94A3B8" stroke-width="2"></line>
+
+    <!-- Belt Base Rail -->
+    <rect x="80" y="182" width="780" height="24" fill="#1E293B" rx="12" stroke="#0F172A" stroke-width="2"></rect>
+    <!-- Animated Belt surface track -->
+    <g>
+      <rect x="92" y="186" width="756" height="16" fill="url(#beltTracks)">
+        <animateTransform attributeName="transform" type="translate" from="0,0" to="24,0" dur="0.6s" repeatCount="indefinite"></animateTransform>
+      </rect>
+    </g>
+
+    <!-- Rotating End Rollers -->
+    <!-- Left Roller -->
+    <circle cx="92" cy="194" r="11" fill="#475569" stroke="#0F172A" stroke-width="2"></circle>
+    <circle cx="92" cy="194" r="4" fill="#CBD5E1"></circle>
+    <line x1="84" y1="194" x2="100" y2="194" stroke="#0F172A" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" from="0 92 194" to="360 92 194" dur="0.6s" repeatCount="indefinite"></animateTransform>
+    </line>
+    <!-- Right Roller -->
+    <circle cx="848" cy="194" r="11" fill="#475569" stroke="#0F172A" stroke-width="2"></circle>
+    <circle cx="848" cy="194" r="4" fill="#CBD5E1"></circle>
+    <line x1="840" y1="194" x2="856" y2="194" stroke="#0F172A" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" from="0 848 194" to="360 848 194" dur="0.6s" repeatCount="indefinite"></animateTransform>
+    </line>
+  </g>
+
+  <!-- SENSOR STATION 1: HC-SR04 ULTRASONIC SENSOR -->
+  <g id="zone-ultrasonic" class="cursor-pointer" onclick="highlightZone('ultrasonic')">
+    <!-- Vertical Mounting Arm -->
+    <rect x="230" y="90" width="8" height="75" fill="url(#gantryGrad)" stroke="#475569" stroke-width="1"></rect>
+    <!-- Bracket -->
+    <rect x="206" y="82" width="56" height="12" fill="#334155" rx="2"></rect>
+    <!-- HC-SR04 Sensor PCB -->
+    <rect x="205" y="94" width="58" height="26" fill="#1E3A8A" rx="2" stroke="#172554" stroke-width="1.5"></rect>
+    <!-- Dual Transducer Transmitters -->
+    <circle cx="220" cy="107" r="8" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"></circle>
+    <circle cx="220" cy="107" r="3" fill="#94A3B8"></circle>
+    <circle cx="248" cy="107" r="8" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"></circle>
+    <circle cx="248" cy="107" r="3" fill="#94A3B8"></circle>
+    <!-- Ultrasonic Pulse Waves Animation -->
+    <path d="M 215 125 A 15 8 0 0 0 253 125" fill="none" stroke="#0284C7" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" values="0;0.9;0" dur="1.2s" repeatCount="indefinite"></animate>
+      <animate attributeName="d" values="M 224 120 A 10 5 0 0 0 244 120; M 212 155 A 24 10 0 0 0 256 155" dur="1.2s" repeatCount="indefinite"></animate>
+    </path>
+    <text x="234" y="72" fill="#0284C7" font-family="JetBrains Mono, monospace" font-size="10" font-weight="bold" text-anchor="middle">HC-SR04</text>
+    <text x="234" y="60" fill="#64748B" font-family="Space Grotesk, sans-serif" font-size="9" text-anchor="middle" id="svg-prox-label">PROXIMITY [8.4cm]</text>
+  </g>
+
+  <!-- SENSOR STATION 2: TCS3200 COLOUR OPTICAL SENSOR -->
+  <g id="zone-optical" class="cursor-pointer" onclick="highlightZone('optical')">
+    <!-- Gantry overhead arch -->
+    <path d="M 420 180 L 420 80 L 480 80 L 480 180" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round"></path>
+    <!-- Sensor Housing -->
+    <rect x="432" y="75" width="36" height="28" fill="#14532D" rx="3" stroke="#052E16" stroke-width="1.5"></rect>
+    <!-- 4 White LEDs on PCB -->
+    <circle cx="438" cy="82" r="2" fill="#FEF08A"></circle>
+    <circle cx="462" cy="82" r="2" fill="#FEF08A"></circle>
+    <circle cx="438" cy="96" r="2" fill="#FEF08A"></circle>
+    <circle cx="462" cy="96" r="2" fill="#FEF08A"></circle>
+    <!-- Photodiode lens array -->
+    <circle cx="450" cy="89" r="6" fill="#0F172A" stroke="#86EFAC" stroke-width="1"></circle>
+    <!-- Glowing Inspection Cone Light -->
+    <polygon points="440,103 460,103 485,182 415,182" fill="url(#sensorBeam)">
+      <animate attributeName="opacity" values="0.55;0.9;0.55" dur="1.5s" repeatCount="indefinite"></animate>
+    </polygon>
+    <text x="450" y="64" fill="#A04100" font-family="JetBrains Mono, monospace" font-size="10" font-weight="bold" text-anchor="middle">TCS3200 OPTICAL</text>
+    <text x="450" y="52" fill="#047857" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">ACTIVE SCAN: 640nm</text>
+  </g>
+
+  <!-- SORTING ACTUATOR: MG996R SERVO DIVERTER FLAP -->
+  <g id="zone-servo" class="cursor-pointer" onclick="highlightZone('servo')">
+    <!-- Servo Bracket -->
+    <rect x="640" y="120" width="40" height="38" fill="#1E293B" rx="3" stroke="#0F172A" stroke-width="1.5"></rect>
+    <rect x="646" y="126" width="28" height="10" fill="#F97316" rx="1"></rect>
+    <text x="660" y="134" fill="#FFF" font-family="JetBrains Mono, monospace" font-size="7" font-weight="bold" text-anchor="middle">MG996R</text>
+    <!-- Output Spline Pin -->
+    <circle cx="660" cy="158" r="6" fill="#94A3B8" stroke="#334155" stroke-width="1"></circle>
+    <!-- Pivoting Diverter Flap Gate (Animated) -->
+    <g id="servo-flap">
+      <rect x="656" y="158" width="8" height="44" fill="#EA580C" rx="2" stroke="#7C2D12" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="rotate" values="-20 660 158; 0 660 158; 20 660 158; -20 660 158" dur="3.5s" repeatCount="indefinite"></animateTransform>
+      </rect>
+    </g>
+    <text x="660" y="108" fill="#EA580C" font-family="JetBrains Mono, monospace" font-size="10" font-weight="bold" text-anchor="middle">SERVO DIVERTER</text>
+    <text x="660" y="96" fill="#64748B" font-family="Space Grotesk, sans-serif" font-size="9" text-anchor="middle">FLAP: 4-WAY DEFLECT</text>
+  </g>
+
+  <!-- MOVING ITEMS ON BELT (TRAVERSING LEFT TO RIGHT) -->
+  <!-- Item 1: RED (Under Optical/Past Optical) -->
+  <g>
+    <rect x="0" y="164" width="20" height="20" rx="3" fill="#EF4444" stroke="#991B1B" stroke-width="1.5">
+      <animate attributeName="x" values="90; 650; 705" dur="5s" repeatCount="indefinite"></animate>
+    </rect>
+    <!-- Specular highlight -->
+    <circle cx="6" cy="169" r="2" fill="#FCA5A5">
+      <animate attributeName="cx" values="96; 656; 711" dur="5s" repeatCount="indefinite"></animate>
+    </circle>
+  </g>
+
+  <!-- Item 2: GREEN (Entering Conveyor) -->
+  <g>
+    <rect x="0" y="164" width="20" height="20" rx="3" fill="#10B981" stroke="#065F46" stroke-width="1.5">
+      <animate attributeName="x" values="90; 450; 650; 755" dur="5s" begin="-1.8s" repeatCount="indefinite"></animate>
+    </rect>
+    <circle cx="6" cy="169" r="2" fill="#A7F3D0">
+      <animate attributeName="cx" values="96; 456; 656; 761" dur="5s" begin="-1.8s" repeatCount="indefinite"></animate>
+    </circle>
+  </g>
+
+  <!-- Item 3: YELLOW (Approaching Diverter) -->
+  <g>
+    <rect x="0" y="164" width="20" height="20" rx="3" fill="#EAB308" stroke="#854D0E" stroke-width="1.5">
+      <animate attributeName="x" values="90; 450; 650; 805" dur="5s" begin="-3.4s" repeatCount="indefinite"></animate>
+    </rect>
+    <circle cx="6" cy="169" r="2" fill="#FEF08A">
+      <animate attributeName="cx" values="96; 456; 656; 811" dur="5s" begin="-3.4s" repeatCount="indefinite"></animate>
+    </circle>
+  </g>
+
+  <!-- 4 SORTED OUTPUT BINS (BOTTOM RIGHT) -->
+  <g id="zone-bins" class="cursor-pointer" onclick="highlightZone('bins')">
+    <!-- Chute Guides branching off -->
+    <path d="M 670 206 L 690 280" stroke="#94A3B8" stroke-width="2" stroke-dasharray="3,3"></path>
+    <path d="M 720 206 L 740 280" stroke="#94A3B8" stroke-width="2" stroke-dasharray="3,3"></path>
+    <path d="M 770 206 L 790 280" stroke="#94A3B8" stroke-width="2" stroke-dasharray="3,3"></path>
+    <path d="M 820 206 L 840 280" stroke="#94A3B8" stroke-width="2" stroke-dasharray="3,3"></path>
+
+    <!-- BIN #1: RED -->
+    <rect x="660" y="280" width="55" height="95" fill="#FEF2F2" rx="4" stroke="#EF4444" stroke-width="2"></rect>
+    <rect x="664" y="284" width="47" height="12" fill="#EF4444" rx="2"></rect>
+    <text x="687" y="293" fill="#FFF" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">BIN #1</text>
+    <text x="687" y="325" fill="#DC2626" font-family="JetBrains Mono, monospace" font-size="14" font-weight="bold" text-anchor="middle">RED</text>
+    <!-- Sorted items stack -->
+    <rect x="673" y="346" width="12" height="12" fill="#EF4444" rx="1"></rect>
+    <rect x="690" y="348" width="12" height="12" fill="#EF4444" rx="1"></rect>
+    <rect x="680" y="334" width="12" height="12" fill="#EF4444" rx="1"></rect>
+
+    <!-- BIN #2: GREEN -->
+    <rect x="725" y="280" width="55" height="95" fill="#ECFDF5" rx="4" stroke="#10B981" stroke-width="2"></rect>
+    <rect x="729" y="284" width="47" height="12" fill="#10B981" rx="2"></rect>
+    <text x="752" y="293" fill="#FFF" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">BIN #2</text>
+    <text x="752" y="325" fill="#059669" font-family="JetBrains Mono, monospace" font-size="14" font-weight="bold" text-anchor="middle">GREEN</text>
+    <rect x="736" y="346" width="12" height="12" fill="#10B981" rx="1"></rect>
+    <rect x="754" y="348" width="12" height="12" fill="#10B981" rx="1"></rect>
+    <rect x="744" y="334" width="12" height="12" fill="#10B981" rx="1"></rect>
+
+    <!-- BIN #3: YELLOW -->
+    <rect x="790" y="280" width="55" height="95" fill="#FEFCE8" rx="4" stroke="#F59E0B" stroke-width="2"></rect>
+    <rect x="794" y="284" width="47" height="12" fill="#F59E0B" rx="2"></rect>
+    <text x="817" y="293" fill="#FFF" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">BIN #3</text>
+    <text x="817" y="325" fill="#D97706" font-family="JetBrains Mono, monospace" font-size="13" font-weight="bold" text-anchor="middle">YELLOW</text>
+    <rect x="804" y="346" width="12" height="12" fill="#F59E0B" rx="1"></rect>
+    <rect x="820" y="348" width="12" height="12" fill="#F59E0B" rx="1"></rect>
+
+    <!-- BIN #4: OTHER -->
+    <rect x="855" y="280" width="55" height="95" fill="#F1F5F9" rx="4" stroke="#64748B" stroke-width="2"></rect>
+    <rect x="859" y="284" width="47" height="12" fill="#64748B" rx="2"></rect>
+    <text x="882" y="293" fill="#FFF" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">BIN #4</text>
+    <text x="882" y="325" fill="#475569" font-family="JetBrains Mono, monospace" font-size="13" font-weight="bold" text-anchor="middle">OTHER</text>
+    <rect x="868" y="346" width="12" height="12" fill="#64748B" rx="1"></rect>
+  </g>
+
+  <!-- Live Status Annotations Overlay -->
+  <g id="zone-callout" opacity="0.95">
+    <rect x="16" y="380" width="340" height="26" fill="#0F172A" rx="2"></rect>
+    <text x="26" y="397" fill="#38BDF8" font-family="JetBrains Mono, monospace" font-size="11" id="telemetry-live-readout">STATUS // CONVEYOR: 30 RPM • TCS3200: ACTIVE • DEFLECT: AUTO</text>
+  </g>
+</svg></div>
+<!-- 4 Exact Industrial Machine Controls Bar -->
+<div class="mt-4 pt-4 border-t border-surface-dim flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<!-- Control 1: START SORTING -->
+<button class="px-4 py-2 border-2 border-emerald-600 bg-emerald-50/50 hover:bg-emerald-100 text-emerald-700 font-label-telemetry font-bold text-label-telemetry uppercase rounded transition flex items-center gap-1.5 active:translate-y-px" id="btn-start" onclick="setMachineState('RUNNING')">
+<span class="material-symbols-outlined">play_arrow</span>
+                    START SORTING
+                  </button>
+<!-- Control 2: PAUSE FEED -->
+<button class="px-4 py-2 border-2 border-amber-500 hover:bg-amber-50 text-amber-700 font-label-telemetry font-bold text-label-telemetry uppercase rounded transition flex items-center gap-1.5 active:translate-y-px" id="btn-stop" onclick="setMachineState('PAUSED')">
+<span class="material-symbols-outlined">pause</span>
+                    PAUSE FEED
+                  </button>
+<!-- Control 3: SIMULATE NEXT ITEM -->
+<button class="px-4 py-2 bg-surface-container text-on-surface hover:bg-surface-container-high border border-surface-dim font-label-telemetry font-semibold text-label-telemetry uppercase rounded transition active:translate-y-px flex items-center gap-1.5" onclick="testFeedNext()">
+<span class="material-symbols-outlined" style="font-size:18px;">skip_next</span>
+                    SIMULATE NEXT ITEM
+                  </button>
+</div>
+<div>
+<!-- Control 4: EMERGENCY STOP -->
+<button class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-label-telemetry font-bold text-label-telemetry uppercase rounded shadow-md border-2 border-red-800 transition active:translate-y-px flex items-center gap-2" onclick="openEStopModal()">
+<span class="material-symbols-outlined">warning</span>
+                    EMERGENCY STOP
+                  </button>
+</div>
+</div>
+</div>
+<!-- SENSOR MONITORING TRIPLE Bento CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><!-- TCS3200 Card with Tooltip & Highlight -->
+<div class="bg-surface-container-lowest border border-surface-dim p-4 rounded-lg shadow-sm cursor-pointer hover:border-primary-container transition relative group" onclick="highlightZone('optical')" title="Click to focus TCS3200 Optical Sensor zone">
+<div class="flex items-center justify-between pb-2 border-b border-surface-dim mb-3">
+<span class="text-label-code font-label-code text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-primary" style="font-size:16px;">palette</span>
+TCS3200 OPTICAL
+</span>
+<span class="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded text-label-code font-label-code font-bold">ONLINE</span>
+</div>
+<div class="space-y-2">
+<div class="text-label-telemetry font-label-telemetry font-bold text-on-surface flex items-center gap-2" id="card-tcs-color">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+RGB: 182 / 94 / 61
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Wavelength: <span class="font-bold text-on-surface font-label-telemetry">640 nm</span>
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Classification: <span class="font-bold text-on-surface" id="card-tcs-class">RED [Bin #1]</span>
+</div>
+<div class="text-label-code font-label-code text-secondary pt-1 border-t border-surface-dim flex justify-between items-center">
+<span class="">Photodiode: 8x8 Matrix</span>
+<span class="text-primary text-label-code font-bold group-hover:underline">Inspect →</span>
+</div>
+</div>
+</div>
+<!-- HC-SR04 Card with Tooltip & Highlight -->
+<div class="bg-surface-container-lowest border border-surface-dim p-4 rounded-lg shadow-sm cursor-pointer hover:border-primary-container transition relative group" onclick="highlightZone('ultrasonic')" title="Click to focus HC-SR04 Proximity Sensor zone">
+<div class="flex items-center justify-between pb-2 border-b border-surface-dim mb-3">
+<span class="text-label-code font-label-code text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-primary" style="font-size:16px;">sensors</span>
+HC-SR04 ULTRASONIC
+</span>
+<span class="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded text-label-code font-label-code font-bold">ONLINE</span>
+</div>
+<div class="space-y-2">
+<div class="text-label-telemetry font-label-telemetry font-bold text-on-surface">
+Distance: <span class="text-primary-container font-bold" id="card-ultrasonic-dist">8.4 cm</span>
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Trigger Pulse: <span class="font-bold text-on-surface font-label-telemetry">10 μs TTL</span>
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Echo Time: <span class="font-bold text-on-surface font-label-telemetry" id="card-echo-time">490 μs</span>
+</div>
+<div class="text-label-code font-label-code text-secondary pt-1 border-t border-surface-dim flex justify-between items-center">
+<span class="">Threshold: &lt; 10.0 cm</span>
+<span class="text-primary text-label-code font-bold group-hover:underline">Inspect →</span>
+</div>
+</div>
+</div>
+<!-- PIR Motion Sensor Card with Tooltip & Highlight -->
+<div class="bg-surface-container-lowest border border-surface-dim p-4 rounded-lg shadow-sm cursor-pointer hover:border-primary-container transition relative group" onclick="highlightZone('hopper')" title="Click to focus PIR Feeder Chute Intake zone">
+<div class="flex items-center justify-between pb-2 border-b border-surface-dim mb-3">
+<span class="text-label-code font-label-code text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-primary" style="font-size:16px;">motion_sensor_active</span>
+PIR SENSOR
+</span>
+<span class="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded text-label-code font-label-code font-bold">ONLINE</span>
+</div>
+<div class="space-y-2">
+<div class="text-label-telemetry font-label-telemetry font-bold text-tertiary" id="card-pir-detect">
+Detection: ACTIVE
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Feed Delay: <span class="font-bold text-on-surface font-label-telemetry">2.4 s</span>
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+Position: <span class="font-bold text-on-surface">Chute Intake #1</span>
+</div>
+<div class="text-label-code font-label-code text-secondary pt-1 border-t border-surface-dim flex justify-between items-center">
+<span class="">Interlock: Auto-Feed</span>
+<span class="text-primary text-label-code font-bold group-hover:underline">Inspect →</span>
+</div>
+</div>
+</div></div>
+</div>
+<!-- SECTION B & E: TELEMETRY & ANALYTICS SIDE PANEL (4 Cols) -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Total Sorted Count Ticker -->
+<div class="bg-surface-container-lowest border border-surface-dim p-5 rounded-lg shadow-sm">
+<div class="flex justify-between items-center pb-2 border-b border-surface-dim">
+<span class="text-label-code font-label-code text-primary font-bold">LIVE TELEMETRY COUNTER</span>
+<span class="text-label-code font-label-code text-secondary">SESSION METRICS</span>
+</div>
+<div class="my-4">
+<div class="text-body-sm font-body-sm text-secondary uppercase tracking-wide">Total Units Sorted</div>
+<div class="flex items-baseline gap-2">
+<span class="font-label-telemetry text-headline-xl font-bold text-on-surface" id="total-sorted-counter">1,248</span>
+<span class="text-label-code font-label-code text-emerald-600 font-bold">+1 item / 3s</span>
+</div>
+</div>
+<!-- Real-time Output Bins Distribution Bars -->
+<div class="space-y-3 pt-3 border-t border-surface-dim">
+<!-- BIN #1: RED -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-semibold flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-red-500"></span> BIN #1 — RED
+                    </span>
+<span class="font-label-telemetry"><span class="font-bold" id="count-red">420</span> (<span id="pct-red" class="">34%</span>)</span>
+</div>
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full rounded-full transition-all duration-500" id="bar-red" style="width: 34%;"></div>
+</div>
+</div>
+<!-- BIN #2: GREEN -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-semibold flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-emerald-500"></span> BIN #2 — GREEN
+                    </span>
+<span class="font-label-telemetry"><span class="font-bold" id="count-green">350</span> (<span id="pct-green" class="">28%</span>)</span>
+</div>
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full transition-all duration-500" id="bar-green" style="width: 28%;"></div>
+</div>
+</div>
+<!-- BIN #3: YELLOW -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-semibold flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-amber-400"></span> BIN #3 — YELLOW
+                    </span>
+<span class="font-label-telemetry"><span class="font-bold" id="count-yellow">280</span> (<span id="pct-yellow" class="">22%</span>)</span>
+</div>
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+<div class="bg-amber-400 h-full rounded-full transition-all duration-500" id="bar-yellow" style="width: 22%;"></div>
+</div>
+</div>
+<!-- BIN #4: OTHER -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-semibold flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-slate-500"></span> BIN #4 — OTHER
+                    </span>
+<span class="font-label-telemetry"><span class="font-bold" id="count-blue">198</span> (<span id="pct-blue" class="">16%</span>)</span>
+</div>
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+<div class="bg-slate-500 h-full rounded-full transition-all duration-500" id="bar-blue" style="width: 16%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- OPERATIONAL ANALYTICS -->
+<div class="bg-surface-container-lowest border border-surface-dim p-5 rounded-lg shadow-sm space-y-4">
+<div class="flex justify-between items-center pb-2 border-b border-surface-dim">
+<span class="text-label-code font-label-code text-primary font-bold">OPERATIONAL ANALYTICS</span>
+<span class="text-label-code font-label-code text-secondary">BENCHMARK</span>
+</div>
+<!-- Sorting Accuracy Gauge Card -->
+<div class="p-3 bg-surface-container-low rounded border border-surface-dim flex items-center justify-between">
+<div>
+<div class="text-label-code font-label-code text-secondary uppercase">Sorting Accuracy</div>
+<div class="font-label-telemetry text-headline-md text-tertiary font-bold" id="an-accuracy">98.4%</div>
+<div class="text-label-code font-label-code text-secondary">Calibration Drift: <span id="an-drift">&lt; 0.3%</span></div>
+</div>
+<!-- Circular Indicator -->
+<div class="w-14 h-14 rounded-full border-4 border-emerald-500 border-t-transparent flex items-center justify-center font-label-code text-label-code font-bold text-on-surface animate-spin" style="animation-duration: 8s;">
+                  98%
+                </div>
+</div>
+<!-- Conveyor Throughput Metric -->
+<div class="p-3 bg-surface-container-low rounded border border-surface-dim flex items-center justify-between">
+<div>
+<div class="text-label-code font-label-code text-secondary uppercase">Conveyor Throughput</div>
+<div class="font-label-telemetry text-headline-md text-on-surface font-bold"><span id="an-throughput">30</span> <span class="text-body-sm font-normal text-secondary">units/min</span></div>
+<div class="text-label-code font-label-code text-secondary">Continuous Belt Feed Speed</div>
+</div>
+<div class="text-right">
+<span class="px-2 py-1 bg-primary-fixed text-on-primary-fixed rounded text-label-code font-label-code font-bold" id="an-throughput-label">OPTIMAL</span>
+</div>
+</div>
+<!-- Servo Duty Cycle -->
+<div class="p-3 bg-surface-container-low rounded border border-surface-dim">
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="text-secondary">MG996R Flap Diverter Duty</span>
+<span class="font-label-telemetry font-bold text-on-surface" id="an-duty-text">38% (Normal)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" id="an-duty-bar" style="width: 38%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 2: MACHINE STATUS                                     -->
+<!-- ======================================================== -->
+<div class="hidden space-y-6" id="content-tab-machine-status">
+<div class="bg-surface-container-lowest border border-surface-dim p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Comprehensive Machine Telemetry &amp; Actuators</h2>
+<p class="font-body-md text-secondary">Real-time state verification for ESP32 and peripheral bus controllers</p>
+</div>
+<span class="px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded font-label-code text-label-code font-bold">BUS HEALTHY</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded">
+<div class="text-label-code font-label-code text-secondary">CHASSIS_TEMP</div>
+<div class="text-headline-md font-label-telemetry font-bold text-on-surface mt-1">34.2 °C</div>
+<div class="text-label-code font-label-code text-tertiary mt-2">Thermal margin: +25.8°C</div>
+</div>
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded">
+<div class="text-label-code font-label-code text-secondary">BUS_VOLTAGE_MAIN</div>
+<div class="text-headline-md font-label-telemetry font-bold text-on-surface mt-1">5.04 V</div>
+<div class="text-label-code font-label-code text-tertiary mt-2">Regulated LM2596 Output</div>
+</div>
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded">
+<div class="text-label-code font-label-code text-secondary">LOGIC_SUPPLY</div>
+<div class="text-headline-md font-label-telemetry font-bold text-on-surface mt-1">3.31 V</div>
+<div class="text-label-code font-label-code text-tertiary mt-2">ESP32 3.3V Rail: Stable</div>
+</div>
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded">
+<div class="text-label-code font-label-code text-secondary">CYCLE_RUNTIME</div>
+<div class="text-headline-md font-label-telemetry font-bold text-on-surface mt-1">03:42:19</div>
+<div class="text-label-code font-label-code text-secondary mt-2">Total Power On Time</div>
+</div>
+</div>
+<!-- Actuator Joint Matrix Table -->
+<div class="mt-6">
+<h3 class="font-title-md text-title-md text-on-surface mb-3 uppercase tracking-wide">Actuator Node Overrides</h3>
+<div class="overflow-x-auto border border-surface-dim rounded">
+<table class="w-full text-left text-body-sm font-body-sm">
+<thead class="bg-surface-container-low text-label-code font-label-code text-secondary border-b border-surface-dim uppercase">
+<tr>
+<th class="p-3">Actuator ID</th>
+<th class="p-3">Physical Function</th>
+<th class="p-3">Current Value</th>
+<th class="p-3">Signal Type</th>
+<th class="p-3">Feedback</th>
+<th class="p-3 text-right">Manual Jog</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-dim">
+<tr>
+<td class="p-3 font-label-telemetry font-bold">SERVO-01 (MG996R)</td>
+<td class="p-3">Sorting Diverter Flap</td>
+<td class="p-3 font-label-telemetry text-primary-container font-bold">45° (RED Position)</td>
+<td class="p-3 font-label-code text-secondary">PWM Pin D9 (50Hz)</td>
+<td class="p-3 text-emerald-600 font-bold">Locked</td>
+<td class="p-3 text-right">
+<button class="px-2 py-1 bg-surface-container text-label-code font-label-code rounded border border-surface-dim hover:bg-surface-container-high" onclick="alert('Manual Jog command emitted to SERVO-01')">JOG +5°</button>
+</td>
+</tr>
+<tr>
+<td class="p-3 font-label-telemetry font-bold">SERVO-02 (SG90)</td>
+<td class="p-3">Chute Feeder Gate Release</td>
+<td class="p-3 font-label-telemetry font-bold text-on-surface">0° (Open)</td>
+<td class="p-3 font-label-code text-secondary">PWM Pin D10 (50Hz)</td>
+<td class="p-3 text-emerald-600 font-bold">Locked</td>
+<td class="p-3 text-right">
+<button class="px-2 py-1 bg-surface-container text-label-code font-label-code rounded border border-surface-dim hover:bg-surface-container-high" onclick="alert('Manual Jog command emitted to SERVO-02')">PULSE GATE</button>
+</td>
+</tr>
+<tr>
+<td class="p-3 font-label-telemetry font-bold">MOTOR-DC-01</td>
+<td class="p-3">Belt Conveyor Drive</td>
+<td class="p-3 font-label-telemetry font-bold text-on-surface">30 RPM [Duty 65%]</td>
+<td class="p-3 font-label-code text-secondary">L298N H-Bridge IN1/IN2</td>
+<td class="p-3 text-emerald-600 font-bold">Running</td>
+<td class="p-3 text-right">
+<button class="px-2 py-1 bg-surface-container text-label-code font-label-code rounded border border-surface-dim hover:bg-surface-container-high" onclick="alert('Toggled Speed to 35 RPM')">SPEED STEP</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 3: COLOUR DETECTION CALIBRATION                       -->
+<!-- ======================================================== -->
+<div class="hidden space-y-6" id="content-tab-colour-detection">
+<div class="bg-surface-container-lowest border border-surface-dim p-6 rounded-lg shadow-sm space-y-6">
+<div class="flex justify-between items-center pb-3 border-b border-surface-dim">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">TCS3200 Optical Spectrometry Calibration</h2>
+<p class="font-body-md text-secondary">Photodiode scaling, white-balance mapping, and chromatic bin boundaries</p>
+</div>
+<button class="px-4 py-2 bg-primary-container text-white font-label-telemetry text-label-telemetry uppercase font-bold rounded shadow hover:bg-orange-600 transition" onclick="triggerCalibration()">
+              Run White Balance
+            </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Red Channel -->
+<div class="p-4 bg-surface-container-low border-t-4 border-red-500 rounded border border-surface-dim space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold text-red-600 font-label-telemetry">RED FILTER CHANNEL</span>
+<span class="text-label-code font-label-code">S2:LOW / S3:LOW</span>
+</div>
+<div class="text-3xl font-label-telemetry font-bold text-on-surface">182 <span class="text-body-sm font-normal text-secondary">RAW</span></div>
+<div class="text-body-sm font-body-sm text-secondary">Dynamic range threshold: 180 - 255</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full w-[72%]"></div>
+</div>
+</div>
+<!-- Green Channel -->
+<div class="p-4 bg-surface-container-low border-t-4 border-emerald-500 rounded border border-surface-dim space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold text-emerald-600 font-label-telemetry">GREEN FILTER CHANNEL</span>
+<span class="text-label-code font-label-code">S2:HIGH / S3:HIGH</span>
+</div>
+<div class="text-3xl font-label-telemetry font-bold text-on-surface">94 <span class="text-body-sm font-normal text-secondary">RAW</span></div>
+<div class="text-body-sm font-body-sm text-secondary">Dynamic range threshold: 30 - 190</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[49%]"></div>
+</div>
+</div>
+<!-- Blue Channel -->
+<div class="p-4 bg-surface-container-low border-t-4 border-blue-500 rounded border border-surface-dim space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold text-blue-600 font-label-telemetry">BLUE FILTER CHANNEL</span>
+<span class="text-label-code font-label-code">S2:LOW / S3:HIGH</span>
+</div>
+<div class="text-3xl font-label-telemetry font-bold text-on-surface">61 <span class="text-body-sm font-normal text-secondary">RAW</span></div>
+<div class="text-body-sm font-body-sm text-secondary">Dynamic range threshold: 25 - 210</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-blue-500 h-full w-[29%]"></div>
+</div>
+</div>
+</div>
+<!-- Color Match Decision Engine Card -->
+<div class="p-4 bg-surface-container-low rounded border border-surface-dim">
+<div class="font-title-md text-title-md font-bold text-on-surface mb-2">Discrete Threshold Decision Matrix</div>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+              When an object passes along the conveyor under the optical inspection gantry, the TCS3200 evaluates pulse frequencies across photodiodes. The dominant channel drives the MG996R servo diverter flap.
+            </p>
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center font-label-code text-label-code">
+<div class="p-3 bg-surface-container-lowest border-l-4 border-red-500 rounded shadow-sm">
+<div class="font-bold text-on-surface">BIN #1 [RED]</div>
+<div class="text-secondary mt-1">R &gt; G + 50 &amp;&amp; R &gt; B + 50</div>
+<div class="text-primary-container font-bold mt-2">Flap Angle: -18°</div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-l-4 border-emerald-500 rounded shadow-sm">
+<div class="font-bold text-on-surface">BIN #2 [GREEN]</div>
+<div class="text-secondary mt-1">G &gt; R + 30 &amp;&amp; G &gt; B + 20</div>
+<div class="text-primary-container font-bold mt-2">Flap Angle: 0° (Center)</div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-l-4 border-amber-400 rounded shadow-sm">
+<div class="font-bold text-on-surface">BIN #3 [YELLOW]</div>
+<div class="text-secondary mt-1">R &gt; 150 &amp;&amp; G &gt; 140 &amp;&amp; B &lt; 90</div>
+<div class="text-primary-container font-bold mt-2">Flap Angle: +20°</div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-l-4 border-slate-500 rounded shadow-sm">
+<div class="font-bold text-on-surface">BIN #4 [OTHER]</div>
+<div class="text-secondary mt-1">Default Fall-through</div>
+<div class="text-primary-container font-bold mt-2">Pass to Chute End</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 4: SENSORS TELEMETRY TAB                              -->
+<!-- ======================================================== -->
+<div class="hidden space-y-6" id="content-tab-sensors">
+<div class="bg-surface-container-lowest border border-surface-dim p-6 rounded-lg shadow-sm">
+<div class="flex justify-between items-center pb-3 border-b border-surface-dim mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Integrated Sensor Array Telemetry</h2>
+<p class="font-body-md text-secondary">Active telemetry monitoring across optical, ultrasonic, and passive infrared sensors</p>
+</div>
+<span class="text-label-code font-label-code text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> BUS REFRESH: 100 Hz
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Ultrasonic Live Graph Simulation -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold text-on-surface font-label-telemetry">HC-SR04 PROXIMITY WAVEFORM</span>
+<span class="text-label-code font-label-code text-primary-container">8.4 cm TARGET</span>
+</div>
+<div class="h-36 bg-surface-container-lowest border border-surface-dim rounded flex items-end p-2 gap-1 overflow-hidden">
+<div class="w-1/12 bg-primary-container/30 h-[40%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/30 h-[42%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/40 h-[45%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/40 h-[48%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/50 h-[50%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/50 h-[52%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/70 h-[75%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/80 h-[80%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container/90 h-[78%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container h-[92%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container h-[88%] rounded-t"></div>
+<div class="w-1/12 bg-primary-container h-[85%] rounded-t"></div>
+</div>
+<div class="flex justify-between text-label-code font-label-code text-secondary">
+<span class="">T-minus 600ms</span>
+<span class="">Current Distance: 8.4 cm</span>
+</div>
+</div>
+<!-- Optical Sensor Spectrum -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold text-on-surface font-label-telemetry">OPTICAL FREQUENCY RESPONSE</span>
+<span class="text-label-code font-label-code text-emerald-600">640 nm PEAK</span>
+</div>
+<div class="h-36 bg-surface-container-lowest border border-surface-dim rounded flex items-center justify-around p-4">
+<div class="text-center space-y-1">
+<div class="h-24 w-8 bg-red-500 rounded-t mx-auto flex items-end justify-center pb-1 text-white font-label-code text-label-code font-bold">72%</div>
+<span class="text-label-code font-label-code text-secondary">RED</span>
+</div>
+<div class="text-center space-y-1">
+<div class="h-16 w-8 bg-emerald-500 rounded-t mx-auto flex items-end justify-center pb-1 text-white font-label-code text-label-code font-bold">49%</div>
+<span class="text-label-code font-label-code text-secondary">GREEN</span>
+</div>
+<div class="text-center space-y-1">
+<div class="h-10 w-8 bg-blue-500 rounded-t mx-auto flex items-end justify-center pb-1 text-white font-label-code text-label-code font-bold">29%</div>
+<span class="text-label-code font-label-code text-secondary">BLUE</span>
+</div>
+<div class="text-center space-y-1">
+<div class="h-20 w-8 bg-slate-300 rounded-t mx-auto flex items-end justify-center pb-1 text-on-surface font-label-code text-label-code font-bold">65%</div>
+<span class="text-label-code font-label-code text-secondary">CLEAR</span>
+</div>
+</div>
+<div class="flex justify-between text-label-code font-label-code text-secondary">
+<span class="">Scaling: 20% Frequency Output</span>
+<span class="">Signal SNR: 32 dB</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 5: SYSTEM HARDWARE COMPONENTS                         -->
+<!-- ======================================================== -->
+<div class="hidden space-y-6" id="content-tab-components">
+<div class="bg-surface-container-lowest border border-surface-dim p-6 rounded-lg shadow-sm space-y-6">
+<div class="pb-3 border-b border-surface-dim">
+<h2 class="font-headline-md text-headline-md text-on-surface">System Hardware Components</h2>
+<p class="font-body-md text-secondary">Detailed microcontrollers, power regulation, sensing, actuation, conveyor mechanism, and display units</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+<!-- 1. Arduino Uno -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">Arduino Uno</span>
+<span class="px-2 py-0.5 bg-blue-100 text-blue-800 text-label-code font-label-code rounded">MCU Controller</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                ATmega328P based orchestrator executing tight 50Hz PWM timing for servo deflection and optical frequency pulse polling.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Clock: <span class="font-bold text-on-surface">16 MHz</span></div>
+<div class="">Operating Voltage: <span class="font-bold text-on-surface">5V DC</span></div>
+<div class="">Digital I/O: <span class="font-bold text-on-surface">14 Pins (6 PWM)</span></div>
+</div>
+</div>
+<!-- 2. ESP32 -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">ESP32</span>
+<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-label-code font-label-code rounded">IoT Bridge</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                High-performance 240MHz dual-core SoC handling real-time WebSocket telemetry bridging, dashboard sync, and failsafe E-stop broadcasts.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Architecture: <span class="font-bold text-on-surface">Xtensa LX6 32-bit</span></div>
+<div class="">Connectivity: <span class="font-bold text-on-surface">Wi-Fi &amp; Bluetooth BLE</span></div>
+<div class="">Logic Voltage: <span class="font-bold text-on-surface">3.3V DC</span></div>
+</div>
+</div>
+<!-- 3. TCS3200 Colour Sensor -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">TCS3200 Colour Sensor</span>
+<span class="px-2 py-0.5 bg-purple-100 text-purple-800 text-label-code font-label-code rounded">Optical Array</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                Programmable color light-to-frequency converter with 4 bright white LEDs illuminating sorting chute specimens.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Array: <span class="font-bold text-on-surface">8x8 photodiode matrix</span></div>
+<div class="">Filters: <span class="font-bold text-on-surface">Red, Green, Blue, Clear</span></div>
+<div class="">Frequency Scaling: <span class="font-bold text-on-surface">20% (S0:HIGH, S1:LOW)</span></div>
+</div>
+</div>
+<!-- 4. HC-SR04 Ultrasonic Sensor -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">HC-SR04 Ultrasonic Sensor</span>
+<span class="px-2 py-0.5 bg-cyan-100 text-cyan-800 text-label-code font-label-code rounded">Proximity Gate</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                Non-contact distance measurement verifying specimen presence in the chute prior to optical reading sequence.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Range: <span class="font-bold text-on-surface">2 cm - 400 cm</span></div>
+<div class="">Accuracy: <span class="font-bold text-on-surface">±3 mm</span></div>
+<div class="">Trigger Pulse: <span class="font-bold text-on-surface">10 µs TTL</span></div>
+</div>
+</div>
+<!-- 5. PIR Sensor -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">PIR Sensor</span>
+<span class="px-2 py-0.5 bg-rose-100 text-rose-800 text-label-code font-label-code rounded">Intake Interlock</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                Pyroelectric infrared sensor detecting physical object drops onto the primary feeder chute to arm the sorting belt.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Detection Angle: <span class="font-bold text-on-surface">&lt; 100° cone</span></div>
+<div class="">Delay Time: <span class="font-bold text-on-surface">2.4 sec adjustable</span></div>
+<div class="">Output Level: <span class="font-bold text-on-surface">3.3V High / 0V Low</span></div>
+</div>
+</div>
+<!-- 6. Servo Motors -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">Servo Motors</span>
+<span class="px-2 py-0.5 bg-orange-100 text-orange-800 text-label-code font-label-code rounded">Actuators</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                MG996R high-torque metal gear servo driving the multi-angle sorting diverter flap, accompanied by SG90 micro servos for intake gate release.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Stall Torque: <span class="font-bold text-on-surface">11 kg-cm (MG996R)</span></div>
+<div class="">Deflection: <span class="font-bold text-on-surface">Discrete -18°, 0°, +20°</span></div>
+<div class="">Response Time: <span class="font-bold text-on-surface">0.17 s / 60°</span></div>
+</div>
+</div>
+<!-- 7. Conveyor Belt -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">Conveyor Belt</span>
+<span class="px-2 py-0.5 bg-amber-100 text-amber-800 text-label-code font-label-code rounded">Continuous Feed</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                High-grip ribbed polyurethane conveyor driven by a 24V DC geared motor with L298N H-Bridge PWM speed regulation.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Throughput: <span class="font-bold text-on-surface">30 units/min</span></div>
+<div class="">Drive: <span class="font-bold text-on-surface">24V DC Planetary Gear</span></div>
+<div class="">Belt Width: <span class="font-bold text-on-surface">65 mm High-Traction</span></div>
+</div>
+</div>
+<!-- 8. Output Bins -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">Output Bins</span>
+<span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-label-code font-label-code rounded">4 Receptacles</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                Four precision sorting receptacles: Bin #1 (Red), Bin #2 (Green), Bin #3 (Yellow), and Bin #4 (Other/Blue).
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Capacity: <span class="font-bold text-on-surface">500 units / bin</span></div>
+<div class="">Chutes: <span class="font-bold text-on-surface">Low-Friction Guides</span></div>
+<div class="">Verification: <span class="font-bold text-on-surface">Optical Drop Sensors</span></div>
+</div>
+</div>
+<!-- 9. OLED Display -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded hover:border-primary-container transition">
+<div class="flex justify-between items-center mb-2">
+<span class="font-headline-md text-title-md text-on-surface font-bold">OLED Display</span>
+<span class="px-2 py-0.5 bg-violet-100 text-violet-800 text-label-code font-label-code rounded">Local Readout</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+                0.96-inch I2C SSD1306 OLED screen providing on-chassis operator telemetry: color classification, distance, and belt state.
+              </p>
+<div class="text-label-code font-label-code space-y-1 border-t border-surface-dim pt-2 text-secondary">
+<div class="">Resolution: <span class="font-bold text-on-surface">128 x 64 pixels</span></div>
+<div class="">Interface: <span class="font-bold text-on-surface">I2C (Address 0x3C)</span></div>
+<div class="">Refresh: <span class="font-bold text-on-surface">30 FPS Live Telemetry</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- TAB 6: ABOUT SYSTEM & JAVA OOP ARCHITECTURE (Viva Ready) -->
+<!-- ======================================================== -->
+<div class="hidden space-y-6" id="content-tab-oop">
+<div class="bg-surface-container-lowest border border-surface-dim p-6 rounded-lg shadow-sm space-y-6">
+<div class="pb-3 border-b border-surface-dim flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="inline-flex items-center gap-2 px-2.5 py-0.5 bg-primary-fixed text-on-primary-fixed text-label-code font-label-code font-bold rounded mb-1">
+                BTech CSE Academic Viva Presentation Module
+              </div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Java Object-Oriented Architecture</h2>
+<p class="font-body-md text-secondary">Clean enterprise software design patterns applied to conveyor-based physical sorting</p>
+</div>
+<div class="text-right">
+<span class="text-label-code font-label-code text-secondary block">COURSE CODE: CSE-214</span>
+<span class="text-label-code font-label-code font-bold text-primary">OOP &amp; EMBEDDED SYSTEMS</span>
+</div>
+</div>
+<!-- Academic Objectives -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded space-y-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">System Objective</h3>
+<p class="text-body-sm font-body-sm text-secondary leading-relaxed">
+              The primary objective of this project is to automate colour-based object sorting using sensors, Arduino/ESP32 control and a conveyor-based sorting mechanism. The system demonstrates end-to-end integration of sensor hardware data acquisition with robust Object-Oriented Programming (OOP) principles in Java, ensuring modularity, type safety, testability, and graceful fault recovery during academic evaluation.
+            </p>
+</div>
+<!-- 6 Core OOP Classes Required by Edit -->
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface mb-3 uppercase tracking-wide">Core OOP Classes</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-label-code">
+<!-- 1. User Class -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-primary font-bold">CLASS: AUTHENTICATION</div>
+<div class="text-title-md font-bold text-on-surface mt-1">User.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Encapsulates terminal operator credentials, role permissions (Examiner vs Student), session tokens, and audit logging.
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  - operatorId: String<br>
+                  - role: RoleType<br>
+                  + authenticate(token): boolean<br>
+                  + hasCalibrationPrivilege(): boolean
+                </div>
+</div>
+<!-- 2. Machine Base Class -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-primary-container font-bold">CLASS: LIFECYCLE</div>
+<div class="text-title-md font-bold text-on-surface mt-1">Machine.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Encapsulates the global machine lifecycle state (RUNNING, STOPPED, EMERGENCY_HALT). Maintains central event bus, conveyor belt motor speed, and failsafe interlocks.
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  + startMachine(): void<br>
+                  + emergencyStop(): void<br>
+                  + getSystemStatus(): State
+                </div>
+</div>
+<!-- 3. Sensor Abstract Base Class -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-emerald-600 font-bold">ABSTRACT CLASS: BASE</div>
+<div class="text-title-md font-bold text-on-surface mt-1">Sensor.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Defines the polymorphic contract for all hardware sensing peripherals (HC-SR04, PIR, TCS3200). Enforces standard calibration and sample read loops.
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  # sensorId: String<br>
+                  + abstract readRaw(): double<br>
+                  + abstract calibrate(): boolean
+                </div>
+</div>
+<!-- 4. ColourSensor Subclass -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-primary font-bold">SUBCLASS: INHERITANCE</div>
+<div class="text-title-md font-bold text-on-surface mt-1">ColourSensor.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Extends <code class="text-primary font-bold">Sensor</code>. Implements TCS3200 photodiode RGB reading logic and discrete colour classification algorithms.
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  + getDetectedColor(): Color<br>
+                  + override readRaw(): double<br>
+                  + getConfidenceScore(): float
+                </div>
+</div>
+<!-- 5. SortingMachine Class -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-purple-600 font-bold">CLASS: ACTUATION &amp; PIPELINE</div>
+<div class="text-title-md font-bold text-on-surface mt-1">SortingMachine.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Controls the conveyor-based sorting mechanism and MG996R servo diverter flap. Maps classified color enumerations to chute angles (-18°, 0°, +20°).
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  + deflectToBin(Color c): void<br>
+                  + setServoAngle(int deg): void<br>
+                  + triggerConveyorAdvance(): void
+                </div>
+</div>
+<!-- 6. SortingResult Class -->
+<div class="p-4 bg-surface-container-lowest border-2 border-surface-dim rounded hover:border-primary transition">
+<div class="text-label-code text-blue-600 font-bold">MODEL: ENCAPSULATION</div>
+<div class="text-title-md font-bold text-on-surface mt-1">SortingResult.java</div>
+<p class="text-body-sm font-body-sm text-secondary mt-2">
+                  Immutable data transfer object capturing specimen UUID, classification label, target bin index, optical RGB vector, and sorting cycle duration.
+                </p>
+<div class="mt-3 text-label-code bg-surface-container-low p-2 rounded text-secondary">
+                  - itemId: UUID<br>
+                  - timestamp: Instant<br>
+                  + getAssignedBin(): int<br>
+                  + getRgbVector(): int[]
+                </div>
+</div>
+</div>
+</div>
+<!-- Viva Evaluation Ready Checklist -->
+<div class="p-4 bg-surface-container-low border border-surface-dim rounded">
+<h3 class="font-title-md text-title-md font-bold text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">verified</span>
+              Key OOP Concepts Demonstrated for Viva Examiners
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-body-sm font-body-sm">
+<div class="p-3 bg-surface-container-lowest rounded border border-surface-dim">
+<span class="font-bold text-on-surface block">1. Encapsulation</span>
+<span class="text-secondary">Private sensor calibration offsets accessed strictly via validated getters and setters in SortingResult and Machine.</span>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded border border-surface-dim">
+<span class="font-bold text-on-surface block">2. Inheritance</span>
+<span class="text-secondary">ColourSensor extends common abstract Sensor class to inherit sampling infrastructure and avoid code duplication.</span>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded border border-surface-dim">
+<span class="font-bold text-on-surface block">3. Polymorphism</span>
+<span class="text-secondary">Common readRaw() method overridden across sensor types and dynamically invoked in asynchronous polling loops.</span>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded border border-surface-dim">
+<span class="font-bold text-on-surface block">4. Separation of Concerns</span>
+<span class="text-secondary">Decoupled UI telemetry, microcontroller serial bridges, and sorting logic via dedicated MVC layers.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ======================================================== -->
+<!-- 5. HIGH-VISIBILITY INDUSTRIAL EMERGENCY STOP MODAL        -->
+<!-- ======================================================== -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/80 backdrop-blur-sm flex items-center justify-center p-4" id="estop-modal">
+<div class="bg-surface-container-lowest border-2 border-red-600 p-6 rounded-lg max-w-md w-full shadow-2xl space-y-4">
+<div class="flex items-center gap-3 text-red-600">
+<span class="material-symbols-outlined text-4xl">warning</span>
+<div>
+<h3 class="font-headline-md text-title-lg font-bold uppercase">Emergency Stop</h3>
+<p class="text-body-sm font-body-sm text-secondary">Physical Mechatronic Safety Halt</p>
+</div>
+</div>
+<p class="font-body-md text-on-surface font-medium">
+        Are you sure you want to stop the sorting machine?
+      </p>
+<div class="p-3 bg-red-50 text-red-800 text-label-code font-label-code rounded border border-red-200">
+        Conveyor belt drive will be powered down and the MG996R servo diverter flap locked in neutral safe-state immediately.
+      </div>
+<div class="flex items-center justify-end gap-3 pt-2">
+<button class="px-5 py-2.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded font-label-code text-label-code font-bold uppercase tracking-wider transition" onclick="closeEStopModal()">
+          CANCEL
+        </button>
+<button class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-label-telemetry font-bold text-label-telemetry uppercase tracking-wider rounded shadow transition active:translate-y-px" onclick="confirmEmergencyStop()">
+          STOP MACHINE
+        </button>
+</div>
+</div>
+</div><!-- Sequential Hardware Calibration Diagnostics Modal -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/80 backdrop-blur-sm flex items-center justify-center p-4" id="calibration-modal">
+<div class="bg-surface-container-lowest border border-primary-container p-6 rounded-lg max-w-lg w-full shadow-2xl space-y-4">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container animate-spin" id="calib-spinner">sync</span>
+<span class="font-headline-md text-title-md text-on-surface uppercase font-bold">HARDWARE CALIBRATION ROUTINE</span>
+</div>
+<span class="px-2 py-0.5 bg-primary-container/20 text-primary-container font-label-code text-label-code rounded font-bold" id="calib-header-status">RUNNING</span>
+</div>
+<p class="font-body-sm text-secondary">Sequential hardware diagnostic handshake across all sorting actuators &amp; sensors:</p>
+<div class="bg-surface-container-low p-3.5 rounded font-label-code text-label-code space-y-2 border border-surface-dim h-48 overflow-y-auto" id="calib-steps-list">
+<div class="flex justify-between items-center text-secondary" id="step-tcs3200"><span class="">[1/5] TCS3200 Optical Sensor Matrix...</span><span class="font-bold text-amber-500">CALIBRATING</span></div>
+<div class="flex justify-between items-center text-secondary opacity-50" id="step-hcsr04"><span class="">[2/5] HC-SR04 Ultrasonic Distance Datum...</span><span class="font-bold text-secondary">WAITING</span></div>
+<div class="flex justify-between items-center text-secondary opacity-50" id="step-pir"><span class="">[3/5] PIR Intake Motion Interlock...</span><span class="font-bold text-secondary">WAITING</span></div>
+<div class="flex justify-between items-center text-secondary opacity-50" id="step-servo"><span class="">[4/5] MG996R Flap Diverter 0° Datum...</span><span class="font-bold text-secondary">WAITING</span></div>
+<div class="flex justify-between items-center text-secondary opacity-50" id="step-conveyor"><span class="">[5/5] Belt Motor L298N Speed Regulator...</span><span class="font-bold text-secondary">WAITING</span></div>
+</div>
+<div class="p-2.5 bg-surface-container text-on-surface font-label-code text-label-code rounded flex items-center justify-between" id="calib-completion-box">
+<span class="font-bold" id="calib-summary-text">Executing mechatronic test pulse...</span>
+<span class="text-primary-container font-bold" id="calib-progress-num">20%</span>
+</div>
+<div class="flex justify-end pt-2">
+<button class="px-5 py-2 bg-surface-container text-on-surface hover:bg-surface-container-high rounded font-label-code text-label-code font-bold uppercase tracking-wider transition" id="btn-close-calib" onclick="closeCalibrationModal()">
+CLOSE
+</button>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- 6. INTERACTIVE CLIENT-SIDE JAVASCRIPT STATE CONTROLLER    -->
+<!-- ======================================================== -->
+<script>
+    // State Variables
+    let isMachineRunning = true;
+    let totalSorted = 1248;
+    let counts = { red: 420, green: 350, yellow: 280, blue: 198 };
+    let liveTimer = null;
+
+    // 1. Clock Updater
+    function updateClock() {
+      const now = new Date();
+      const utcString = now.toUTCString().split(' ')[4] + " UTC";
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) clockEl.innerText = utcString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Password toggle in login
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('login-password');
+      const icon = document.getElementById('password-toggle-icon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.innerText = 'visibility_off';
+      } else {
+        passInput.type = 'password';
+        icon.innerText = 'visibility';
+      }
+    }
+
+    // 3. Login & Startup Flow
+    function triggerStartup() {
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-password').value.trim();
+      const alertBox = document.getElementById('login-alert');
+
+      if (!email || !pass) {
+        alertBox.classList.remove('hidden');
+        return;
+      }
+      alertBox.classList.add('hidden');
+
+      // Show high-tech startup modal
+      const modal = document.getElementById('startup-modal');
+      modal.classList.remove('hidden');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.getElementById('login-view').classList.add('hidden');
+        // Start simulated conveyor ticker
+        startSimulationTicker();
+      }, 1500);
+    }
+
+    // 4. Tab Navigation System
+    function switchTab(tabId) {
+      const tabs = [
+        'tab-dashboard',
+        'tab-machine-status',
+        'tab-colour-detection',
+        'tab-sensors',
+        'tab-components',
+        'tab-oop'
+      ];
+
+      tabs.forEach(t => {
+        const contentEl = document.getElementById('content-' + t);
+        const navEl = document.getElementById('nav-' + t);
+        if (contentEl) contentEl.classList.add('hidden');
+        if (navEl) {
+          navEl.className = "w-full flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:text-on-surface border-l-4 border-transparent hover:bg-surface-container text-left text-label-code font-label-code transition";
+        }
+      });
+
+      // Activate chosen tab
+      const activeContent = document.getElementById('content-' + tabId);
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeNav) {
+        activeNav.className = "w-full flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-low text-primary-container font-semibold border-l-4 border-primary-container text-left text-label-code font-label-code transition";
+      }
+    }
+
+    // 5. Emergency Stop Functions
+    function openEStopModal() {
+      document.getElementById('estop-modal').classList.remove('hidden');
+    }
+
+    function closeEStopModal() {
+      document.getElementById('estop-modal').classList.add('hidden');
+    }
+
+    function confirmEmergencyStop() {
+      closeEStopModal();
+      setMachineState('STOPPED');
+      // Operator remains on dashboard as requested
+      switchTab('tab-dashboard');
+    }
+
+    function resetEmergencyStop() {
+      setMachineState('RUNNING');
+    }
+
+    function setMachineState(state) {
+      const topBadge = document.getElementById('top-status-badge');
+      const topDot = document.getElementById('top-status-dot');
+      const topText = document.getElementById('top-status-text');
+      const banner = document.getElementById('emergency-banner');
+      const canvasTag = document.getElementById('canvas-status-tag');
+      const animContainer = document.getElementById('conveyor-anim-container');
+
+      if (state === 'STOPPED') {
+        isMachineRunning = false;
+        topBadge.className = "flex items-center gap-2 px-2.5 py-1 bg-red-100 border border-red-600 text-red-700 rounded text-label-code font-label-code";
+        topDot.className = "w-2 h-2 rounded-full bg-red-600";
+        topText.innerText = "SYSTEM STATUS: EMERGENCY STOPPED";
+        banner.classList.remove('hidden');
+        canvasTag.className = "px-2 py-0.5 bg-red-100 text-red-700 border border-red-300 text-label-code font-label-code rounded font-bold";
+        canvasTag.innerText = "HALTED";
+        if (animContainer) animContainer.classList.add('paused-animation');
+      } else if (state === 'PAUSED') {
+        isMachineRunning = false;
+        topBadge.className = "flex items-center gap-2 px-2.5 py-1 bg-amber-100 border border-amber-500 text-amber-800 rounded text-label-code font-label-code";
+        topDot.className = "w-2 h-2 rounded-full bg-amber-500";
+        topText.innerText = "SYSTEM STATUS: PAUSED / IDLE";
+        banner.classList.add('hidden');
+        canvasTag.className = "px-2 py-0.5 bg-amber-100 text-amber-700 border border-amber-300 text-label-code font-label-code rounded font-bold";
+        canvasTag.innerText = "PAUSED";
+        if (animContainer) animContainer.classList.add('paused-animation');
+      } else {
+        isMachineRunning = true;
+        topBadge.className = "flex items-center gap-2 px-2.5 py-1 bg-[#ECFDF5] border border-[#047857] text-[#065F46] rounded text-label-code font-label-code";
+        topDot.className = "w-2 h-2 rounded-full bg-[#10B981] animate-ping";
+        topText.innerText = "SYSTEM STATUS: RUNNING / ONLINE";
+        banner.classList.add('hidden');
+        canvasTag.className = "px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 text-label-code font-label-code rounded font-bold";
+        canvasTag.innerText = "ONLINE";
+        if (animContainer) animContainer.classList.remove('paused-animation');
+      }
+    }
+
+    // 6. Live Simulation Ticker
+    function startSimulationTicker() {
+      if (liveTimer) clearInterval(liveTimer);
+      liveTimer = setInterval(() => {
+        if (!isMachineRunning) return;
+        testFeedNext();
+      }, 3500);
+    }
+
+    function testFeedNext() {
+      totalSorted++;
+      document.getElementById('total-sorted-counter').innerText = totalSorted.toLocaleString();
+
+      const cycleDisplay = document.getElementById('active-cycle-display');
+      if (cycleDisplay) cycleDisplay.innerText = `ACTIVE CYCLE: #${totalSorted + 1}`;
+
+      const colorOptions = [
+        { name: 'RED', bin: '1', hex: '#EF4444', key: 'red', rgb: 'RGB: 182 / 94 / 61', dist: '8.4 cm' },
+        { name: 'GREEN', bin: '2', hex: '#10B981', key: 'green', rgb: 'RGB: 45 / 178 / 82', dist: '8.2 cm' },
+        { name: 'YELLOW', bin: '3', hex: '#EAB308', key: 'yellow', rgb: 'RGB: 210 / 185 / 38', dist: '8.5 cm' },
+        { name: 'OTHER', bin: '4', hex: '#64748B', key: 'blue', rgb: 'RGB: 62 / 95 / 164', dist: '8.3 cm' }
+      ];
+
+      const picked = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+      counts[picked.key]++;
+
+      // Update TCS3200 Card Readouts
+      const cardTcsColor = document.getElementById('card-tcs-color');
+      const cardTcsClass = document.getElementById('card-tcs-class');
+      const cardDist = document.getElementById('card-ultrasonic-dist');
+
+      if (cardTcsColor) {
+        cardTcsColor.innerHTML = `<span class="w-3 h-3 rounded-full" style="background-color: ${picked.hex}"></span> ${picked.rgb}`;
+      }
+      if (cardTcsClass) {
+        cardTcsClass.innerText = `${picked.name} [Bin #${picked.bin}]`;
+      }
+      if (cardDist) {
+        cardDist.innerText = picked.dist;
+      }
+
+      // Update counts & percentages
+      const sum = counts.red + counts.green + counts.yellow + counts.blue;
+      const pctRed = Math.round((counts.red / sum) * 100);
+      const pctGreen = Math.round((counts.green / sum) * 100);
+      const pctYellow = Math.round((counts.yellow / sum) * 100);
+      const pctBlue = Math.round((counts.blue / sum) * 100);
+
+      document.getElementById('count-red').innerText = counts.red;
+      document.getElementById('count-green').innerText = counts.green;
+      document.getElementById('count-yellow').innerText = counts.yellow;
+      document.getElementById('count-blue').innerText = counts.blue;
+
+      document.getElementById('pct-red').innerText = pctRed + '%';
+      document.getElementById('pct-green').innerText = pctGreen + '%';
+      document.getElementById('pct-yellow').innerText = pctYellow + '%';
+      document.getElementById('pct-blue').innerText = pctBlue + '%';
+
+      document.getElementById('bar-red').style.width = pctRed + '%';
+      document.getElementById('bar-green').style.width = pctGreen + '%';
+      document.getElementById('bar-yellow').style.width = pctYellow + '%';
+      document.getElementById('bar-blue').style.width = pctBlue + '%';
+    }
+
+    // 7. Calibration CTA Simulation
+    function triggerCalibration() {
+      alert("CALIBRATION COMMAND TRANSMITTED TO ESP32:\n- TCS3200 white balance optical matrix recalibrated.\n- MG996R diverter flap homed to 0° datum.\n- HC-SR04 ultrasonic baseline zeroed at 8.4 cm.");
+    }
+
+    // 8. Logout
+    function confirmLogout() {
+      if (confirm("Disconnect from station and return to login terminal?")) {
+        if (liveTimer) clearInterval(liveTimer);
+        document.getElementById('login-view').classList.remove('hidden');
+      }
+    }
+  </script>
+
+
+<script src="autosorter-bridge.js"></script>
+</body></html>
